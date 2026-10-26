@@ -1,5 +1,7 @@
-import customtkinter as ctk
 from tkinter import ttk
+import customtkinter as ctk
+
+
 class BukuView(ctk.CTk):
 
   def __init__(self):
@@ -34,11 +36,31 @@ class BukuView(ctk.CTk):
         self.frame_kiri, placeholder_text="Tahun Terbit (Misal: 2024)"
     )
     self.entry_tahun.pack(pady=10, padx=15, fill="x")
+
     # Tombol Aksi
     self.btn_simpan = ctk.CTkButton(
         self.frame_kiri, text="Simpan Data", fg_color="green"
     )
-    self.btn_simpan.pack(pady=20, padx=15, fill="x")
+    self.btn_simpan.pack(pady=10, padx=15, fill="x")
+
+    # Tombol Perbarui Data (Update) - Warna Biru
+    self.btn_update = ctk.CTkButton(
+        self.frame_kiri,
+        text="Perbarui Data (Update)",
+        fg_color="blue",
+        hover_color="darkblue",
+    )
+    self.btn_update.pack(pady=10, padx=15, fill="x")
+
+    # Tombol Hapus Data (Delete) - Warna Merah
+    self.btn_delete = ctk.CTkButton(
+        self.frame_kiri,
+        text="Hapus Data (Delete)",
+        fg_color="red",
+        hover_color="darkred",
+    )
+    self.btn_delete.pack(pady=10, padx=15, fill="x")
+
     # ==========================================
     # FRAME KANAN: TABEL DAFTAR BUKU
     # ==========================================
@@ -65,6 +87,8 @@ class BukuView(ctk.CTk):
     self.tabel.column("tahun", width=80, anchor="center")
 
     self.tabel.pack(fill="both", expand=True, padx=15, pady=10)
+
+
 # Blok eksekusi untuk menguji tampilan grafis
 if __name__ == "__main__":
   app = BukuView()
