@@ -1,95 +1,58 @@
-from tkinter import ttk
 import customtkinter as ctk
-
+from tkinter import ttk
 
 class BukuView(ctk.CTk):
+    def __init__(self):
+        super().__init__()
+        self.title("Sistem Manajemen Perpustakaan")
+        self.geometry("900x500")
+        self.resizable(False, False)
 
-  def __init__(self):
-    super().__init__()
-    self.title("Sistem Manajemen Perpustakaan")
-    self.geometry("800x450")
-    # Konfigurasi Grid Utama (1 Baris, 2 Kolom)
-    self.grid_columnconfigure(0, weight=1)  # Kolom Kiri (Form)
-    self.grid_columnconfigure(1, weight=2)  # Kolom Kanan (Tabel lebih lebar)
-    self.grid_rowconfigure(0, weight=1)
-    # ==========================================
-    # FRAME KIRI: FORMULIR INPUT BUKU
-    # ==========================================
-    self.frame_kiri = ctk.CTkFrame(self)
-    self.frame_kiri.grid(row=0, column=0, padx=10, pady=10, sticky="nsew")
+        # Konfigurasi Tema
+        ctk.set_appearance_mode("Dark")
 
-    ctk.CTkLabel(
-        self.frame_kiri, text="Form Data Buku", font=("Arial", 16, "bold")
-    ).pack(pady=15)
-    # Komponen Input
-    self.entry_judul = ctk.CTkEntry(
-        self.frame_kiri, placeholder_text="Masukkan Judul Buku"
-    )
-    self.entry_judul.pack(pady=10, padx=15, fill="x")
+        # Frame Kiri (Form Input & Tombol)
+        self.frame_form = ctk.CTkFrame(self, width=350)
+        self.frame_form.pack(side="left", fill="y", padx=20, pady=20)
 
-    self.entry_penulis = ctk.CTkEntry(
-        self.frame_kiri, placeholder_text="Masukkan Nama Penulis"
-    )
-    self.entry_penulis.pack(pady=10, padx=15, fill="x")
+        self.label_title = ctk.CTkLabel(self.frame_form, text="Form Data Buku", font=("Arial", 18, "bold"))
+        self.label_title.pack(pady=20)
 
-    self.entry_tahun = ctk.CTkEntry(
-        self.frame_kiri, placeholder_text="Tahun Terbit (Misal: 2024)"
-    )
-    self.entry_tahun.pack(pady=10, padx=15, fill="x")
+        self.entry_judul = ctk.CTkEntry(self.frame_form, placeholder_text="Masukkan Judul Buku", width=280)
+        self.entry_judul.pack(pady=10)
 
-    # Tombol Aksi
-    self.btn_simpan = ctk.CTkButton(
-        self.frame_kiri, text="Simpan Data", fg_color="green"
-    )
-    self.btn_simpan.pack(pady=10, padx=15, fill="x")
+        self.entry_penulis = ctk.CTkEntry(self.frame_form, placeholder_text="Masukkan Nama Penulis", width=280)
+        self.entry_penulis.pack(pady=10)
 
-    # Tombol Perbarui Data (Update) - Warna Biru
-    self.btn_update = ctk.CTkButton(
-        self.frame_kiri,
-        text="Perbarui Data (Update)",
-        fg_color="blue",
-        hover_color="darkblue",
-    )
-    self.btn_update.pack(pady=10, padx=15, fill="x")
+        self.entry_tahun = ctk.CTkEntry(self.frame_form, placeholder_text="Tahun Terbit (Misal: 2024)", width=280)
+        self.entry_tahun.pack(pady=10)
 
-    # Tombol Hapus Data (Delete) - Warna Merah
-    self.btn_delete = ctk.CTkButton(
-        self.frame_kiri,
-        text="Hapus Data (Delete)",
-        fg_color="red",
-        hover_color="darkred",
-    )
-    self.btn_delete.pack(pady=10, padx=15, fill="x")
+        # Tombol-tombol Aksi
+        self.btn_simpan = ctk.CTkButton(self.frame_form, text="Simpan Data", fg_color="green", hover_color="darkgreen", width=280)
+        self.btn_simpan.pack(pady=15)
 
-    # ==========================================
-    # FRAME KANAN: TABEL DAFTAR BUKU
-    # ==========================================
-    self.frame_kanan = ctk.CTkFrame(self)
-    self.frame_kanan.grid(row=0, column=1, padx=10, pady=10, sticky="nsew")
+        self.btn_update = ctk.CTkButton(self.frame_form, text="Perbarui Data (Update)", fg_color="blue", hover_color="darkblue", width=280)
+        self.btn_update.pack(pady=5)
 
-    ctk.CTkLabel(
-        self.frame_kanan, text="Daftar Koleksi Buku", font=("Arial", 16, "bold")
-    ).pack(pady=15)
-    # Komponen Tabel (Treeview dari tkinter standar)
-    kolom = ("id", "judul", "penulis", "tahun")
-    self.tabel = ttk.Treeview(
-        self.frame_kanan, columns=kolom, show="headings", height=15
-    )
-    # Konfigurasi Header Tabel
-    self.tabel.heading("id", text="ID")
-    self.tabel.heading("judul", text="Judul Buku")
-    self.tabel.heading("penulis", text="Penulis")
-    self.tabel.heading("tahun", text="Tahun")
-    # Konfigurasi Lebar Kolom
-    self.tabel.column("id", width=40, anchor="center")
-    self.tabel.column("judul", width=150)
-    self.tabel.column("penulis", width=120)
-    self.tabel.column("tahun", width=80, anchor="center")
+        self.btn_hapus = ctk.CTkButton(self.frame_form, text="Hapus Data (Delete)", fg_color="red", hover_color="darkred", width=280)
+        self.btn_hapus.pack(pady=5)
 
-    self.tabel.pack(fill="both", expand=True, padx=15, pady=10)
+        # Frame Kanan (Tabel / Treeview)
+        self.frame_tabel = ctk.CTkFrame(self)
+        self.frame_tabel.pack(side="right", fill="both", expand=True, padx=20, pady=20)
 
+        self.label_tabel = ctk.CTkLabel(self.frame_tabel, text="Daftar Koleksi Buku", font=("Arial", 18, "bold"))
+        self.label_tabel.pack(pady=10)
 
-# Blok eksekusi untuk menguji tampilan grafis
-if __name__ == "__main__":
-  app = BukuView()
-  app.mainloop()
+        # Setup Treeview
+        columns = ("ID", "Judul Buku", "Penulis", "Tahun")
+        self.tabel = ttk.Treeview(self.frame_tabel, columns=columns, show="headings", height=15)
+        
+        for col in columns:
+            self.tabel.heading(col, text=col)
+            self.tabel.column(col, width=110, anchor="center")
+        
+        self.tabel.column("ID", width=40)
+        self.tabel.column("Judul Buku", width=180)
+        
+        self.tabel.pack(fill="both", expand=True, padx=10, pady=10)
