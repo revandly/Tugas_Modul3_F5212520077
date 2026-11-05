@@ -27,6 +27,6 @@ jobs:
       run: |
         flake8 models/ controllers/ --count --select=E9,F63,F7,F82 --show-source --statistics
 
-   - name: Run tests with pytest
-  run: |
-    PYTHONPATH=. pytest
+    - name: Run tests with pytest
+      run: |
+        PYTHONPATH=. pytest
